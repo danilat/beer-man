@@ -2,6 +2,7 @@
 <head>
   <title>Beer - Man</title>
   <script src="phaser.js"></script>
+
   <script>
   var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create: create, update: update });
 
@@ -12,6 +13,7 @@
   var alcohol = 0;
   var beers = 0;
   var scoreText;
+  var TOTAL_OF_BEERS = 12;
 
   function preload() {
     game.load.image('sky', 'assets/sky.png');
@@ -19,6 +21,7 @@
     game.load.image('star', 'assets/beer.png');
     game.load.image('dani', 'assets/yo.jpg');
     game.load.image('dani-alegre', 'assets/danimediopedo.jpg');
+    game.load.image('drugs-no', 'assets/drugs-no.jpg');
     game.load.spritesheet('dude', 'assets/dude.png', 32, 48);
   }
 
@@ -68,7 +71,7 @@
     stars.enableBody = true;
 
     //  Here we'll create 12 of them evenly spaced apart
-    for (var i = 0; i < 12; i++)
+    for (var i = 0; i < TOTAL_OF_BEERS; i++)
     {
         //  Create a star inside of the 'stars' group
         var star = stars.create(i * 70, 0, 'star');
@@ -129,18 +132,20 @@
       star.kill();
       alcohol += 0.4;
       beers +=1;
+      scoreText.text = 'Cerves: '+ beers +' - Pedo en sangre: ' + Math.round(alcohol*100)/100;
 
       if(beers > 3){
         player.loadTexture('dani-alegre', 0);
       }
 
-      scoreText.text = 'Cerves: '+ beers +' - Pedo en sangre: ' + Math.round(alcohol*100)/100;
+      if(beers === TOTAL_OF_BEERS){
+        var end = game.add.sprite(0, 0, 'drugs-no');
+      }
   }
 
   </script>
 
 </head>
 <body>
-
 </body>
 </html>
